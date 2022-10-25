@@ -6,8 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class UtilsMochila {
 
@@ -31,8 +33,8 @@ public class UtilsMochila {
 			while ((linea = br.readLine()) != null) {  
 				String[] valores = linea.split(SEPARADOR);
 				objeto = new HashMap<String, Double>();
-				objeto.put(Mochila.PESO, Double.valueOf(valores[0]));
-				objeto.put(Mochila.VALOR, Double.valueOf(valores[1]));
+				objeto.put(MochilaSinRecursividad.PESO, Double.valueOf(valores[0]));
+				objeto.put(MochilaSinRecursividad.VALOR, Double.valueOf(valores[1]));
 				listaEntrada.add(objeto );
 				
 			}
@@ -62,7 +64,7 @@ public class UtilsMochila {
 		for (Map<String, Double> objetoMochila : listaEntrada) {
 			numero++;
 			if (listaSeleccionados.contains(numero)) {
-				total = total + objetoMochila.get(Mochila.VALOR);
+				total = total + objetoMochila.get(MochilaSinRecursividad.VALOR);
 			}
 		}
 		
@@ -87,6 +89,63 @@ public class UtilsMochila {
 		
 	}
 
+	/** Calcula el valor de la mochila a partir de la lista de ObjetosMochila
+	 * 
+	 * @param listaMochila
+	 * @return
+	 */
+	public static Double valorMochila(Set<ObjetoMochila> listaMochila) {
+
+		Double total = 0d;
+		
+		for (ObjetoMochila objetoMochila : listaMochila) {
+			total = total + objetoMochila.getValor();
+		}
+		
+		return total;
+		
+	}
+
+	
+	/** Pinta el listado de objetos de la mochila
+	 * 
+	 * @param listaMochila
+	 * @return
+	 */
+	public static String pintaMochila(Set<ObjetoMochila> listaMochila) {
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append("Contenido Mochila: ");
+		
+		for (ObjetoMochila objetoMochila : listaMochila) {
+			builder.append(objetoMochila.getNumero()).append(", ");
+		}
+		
+		return builder.toString();
+		
+	}
+
+	/** copiar mochila
+	 * 
+	 * @param listaMochila
+	 * @return
+	 */
+	public static Set<ObjetoMochila> copiarMochila(Set<ObjetoMochila> listaMochila) {
+		
+		Set<ObjetoMochila> nuevaMochila = new LinkedHashSet<ObjetoMochila>();
+		
+		for (ObjetoMochila objetoMochila : listaMochila) {
+			try {
+				nuevaMochila.add(objetoMochila.clone());
+			} catch (CloneNotSupportedException e) {
+				System.out.println("error en copiarMochila" );
+			}
+		}
+		
+		return nuevaMochila;
+		
+	}
+
 	
 	
 	/** Calcula el peso de la mochila a partir de la lista de ObjetosMochila
@@ -103,6 +162,36 @@ public class UtilsMochila {
 		}
 		
 		return total;
+		
+	}
+
+	
+	/** Calcula el peso de la mochila a partir de la lista de ObjetosMochila
+	 * 
+	 * @param listaMochila
+	 * @return
+	 */
+	public static Double pesoMochila(Set<ObjetoMochila> listaMochila) {
+
+		Double total = 0d;
+		
+		for (ObjetoMochila objetoMochila : listaMochila) {
+			total = total + objetoMochila.getPeso();
+		}
+		
+		return total;
+		
+	}
+
+	
+	/** Calcula el peso de la mochila a partir de la lista de ObjetosMochila
+	 * 
+	 * @param listaMochila
+	 * @return
+	 */
+	public static boolean estaObjetoEnMochila(ObjetoMochila objetoBuscado, Set<ObjetoMochila> listaMochila) {
+		
+		return listaMochila.contains(objetoBuscado);
 		
 	}
 

@@ -1,6 +1,6 @@
 package es.ilopezma.mochila;
 
-public class ObjetoMochila implements Comparable<ObjetoMochila> {
+public class ObjetoMochila implements Comparable<ObjetoMochila>, Cloneable {
 
 	private Long numero;
 	private Double valor;
@@ -64,6 +64,18 @@ public class ObjetoMochila implements Comparable<ObjetoMochila> {
 	}
 
 
+	@Override
+	protected ObjetoMochila clone() throws CloneNotSupportedException {
+		ObjetoMochila nuevoObjMochila = (ObjetoMochila) super.clone();
+		
+		nuevoObjMochila.setNumero(this.numero != null ? this.numero.longValue(): null);
+		nuevoObjMochila.setPeso(this.peso != null ? this.peso.doubleValue(): null);
+		nuevoObjMochila.setRelacion(this.relacion != null ? this.relacion.doubleValue():null);
+		nuevoObjMochila.setValor(this.valor != null ? this.valor.doubleValue():null);
+		return nuevoObjMochila;
+	}
+
+
 	/**
 	 * @param relacion the relacion to set
 	 */
@@ -99,5 +111,14 @@ public class ObjetoMochila implements Comparable<ObjetoMochila> {
 				.append(peso).append(", relacion=").append(relacion).append("]");
 		return builder.toString();
 	}
+
+	
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		return super.equals(obj);
+	}
+
 
 }

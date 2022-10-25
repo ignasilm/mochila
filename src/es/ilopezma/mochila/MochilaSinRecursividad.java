@@ -8,10 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Solución al Reto de Programacion de "El problema de la Mochila".
+ * 
+ * Solución inicial en la que no utilizo recursividad
+ * 
  * @author ilopezma
  *
  */
-public class Mochila {
+public class MochilaSinRecursividad {
 
 	public static final String VALOR = "Valor";
 	public static final String PESO = "Peso";
@@ -19,7 +23,7 @@ public class Mochila {
 	/**
 	 * 
 	 */
-	public Mochila() {
+	public MochilaSinRecursividad() {
 		super();
 	}
 
@@ -175,6 +179,13 @@ public class Mochila {
 					}
 				}
 				
+				mensaje = new StringBuilder();
+				mensaje.append("\n\nSe ha encontrado una mochila optimizada.  ");
+				mensaje.append(" \nEl valor de la optimizada es: ").append(UtilsMochila.valorMochila(listaMochila));
+				mensaje.append(" \nEl contenido optimizada es: ").append(listaMochila.toString());
+				
+				System.out.println(mensaje.toString() );
+
 				//Quinto Paso: devolver lista de objetos seleccionados
 				for (ObjetoMochila objetoDentroMochila : listaMochila) {
 					resultado.add(objetoDentroMochila.getNumero());
@@ -193,5 +204,7 @@ public class Mochila {
 		
 	}
 	
+	
+
 }
 
